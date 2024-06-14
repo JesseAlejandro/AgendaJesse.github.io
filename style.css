@@ -1,0 +1,179 @@
+    /* Estilo para el título principal */
+    .titulo {
+        text-align: left; 
+        margin-left: 20px; 
+        margin-top: 20px;
+    }
+
+    .titulo h1 {
+        font-family: Arial, sans-serif;
+        font-size: 2.5em;
+        color: #223843;
+    }
+
+    /* Estilo para el contenedor principal */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: 30px;
+    }
+
+    /* Estilo para el contenedor de inputs */
+    .inputs {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+        width: 300px;
+    }
+
+    /* Estilo para los textos descriptivos */
+    form p {
+        font-family: Arial, sans-serif;
+        font-size: 1em;
+        color: #333;
+        margin: 0;
+        margin-bottom: 5px;
+    }
+
+    /* Estilo para los campos de entrada */
+    form input[type="text"], form input[type="number"], form input[type="date"] {
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    /* Estilo para el formulario completo */
+    form input[type="text"]:focus, form input[type="number"]:focus, form input[type="date"]:focus {
+        border-color: #223843;
+        outline: none;
+    }
+
+    /* Estilo para el contenedor del botón */
+    .enviar {
+        display: flex;
+        justify-content: flex-end;
+        width: 300px;
+        margin-top: 20px;
+    }
+
+    /* Estilo para el botón de envío */
+    .enviar input[type="button"] {
+        padding: 10px 20px;
+        font-size: 1em;
+        color: white;
+        background-color: #223843;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .enviar input[type="button"]:hover {
+        background-color: #45a049;
+    }
+
+    /* Estilo general para el body */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #ACD2ED;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+    }
+
+    /* Estilo para el contenedor de búsqueda */
+    .search-container {
+        margin-top: 20px;
+    }
+
+    .search-container input[type="text"] {
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 200px;
+    }
+
+    .search-container input[type="button"] {
+        padding: 10px 20px;
+        font-size: 1em;
+        color: white;
+        background-color: #223843;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .search-container input[type="button"]:hover {
+        background-color: #45a049;
+    }
+
+    /* Estilo para el contenedor de la tabla de registros */
+    .records-container {
+        flex: 1;
+        margin-left: 20px;
+        display: none;
+    }
+
+    /* Estilo para la tabla de registros */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid #ccc;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #223843;
+        color: white;
+    }
+
+    .search-container input[type="button"]{
+        padding: 10px 20px;
+        font-size: 1em;
+        color: white;
+        background-color: #223843;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .show-all {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+    .show-all input[type="button"] {
+        padding: 10px 20px;
+        font-size: 1em;
+        color: white;
+        background-color: #223843;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .show-all input[type="button"]:hover {
+        background-color: #45a049;
+    }
+
+

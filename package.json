@@ -1,0 +1,17 @@
+{
+  "name": "agenda",
+  "version": "1.0.0",
+  "main": "mysql.js",
+  "scripts": {
+    "start": "node mysql.js"
+    
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}
+
