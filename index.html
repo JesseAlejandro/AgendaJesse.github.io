@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="titulo">
+        <h1>Agenda de Jiménez</h1>
+    </div>
+
+    <div class="container">
+        <div class="inputs">
+            <form id="agendaForm">
+                <p>Nombre:</p>
+                <input type="text" name="nombre" id="nombre">
+
+                <p>Apellidos:</p>
+                <input type="text" name="apellidos" id="apellidos">
+
+                <p>Domicilio:</p>
+                <input type="text" name="domicilio" id="domicilio">
+
+                <p>Teléfono de Casa:</p>
+                <input type="number" name="telefono_casa" id="telefono_casa">
+
+                <p>Celular:</p>
+                <input type="number" name="celular" id="celular">
+
+                <p>Fecha de Nacimiento:</p>
+                <input type="date" name="fecha_nacimiento" id="fecha_nacimiento">
+
+                <p>Correo:</p>
+                <input type="text" name="correo" id="correo">
+
+                <div class="enviar">
+                    <input type="button" value="Enviar" onclick="submitForm()">
+                </div>
+            </form>
+            <div class="search-container">
+                <input type="text" id="search" placeholder="Buscar...">
+                <input type="button" value="Buscar" onclick="searchEntries()">
+            </div>
+            <div class="show-all">
+                <input type="button" value="Mostrar registros" onclick="showAllEntries()" id="mostrar">
+            </div>
+        </div>
+
+        <div class="records-container" id="recordsContainer">
+            <table id="recordsTable">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Domicilio</th>
+                        <th>Teléfono de Casa</th>
+                        <th>Celular</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Correo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Filas de registros se añadirán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function submitForm() {
+            const form = document.getElementById('agendaForm');
+            const formData = new FormData(form);
+
+            const data = {
+                nombre: formData.get('nombre'),
+                apellidos: formData.get('apellidos'),
+                domicilio: formData.get('domicilio'),
+                telefono_casa: formData.get('telefono_casa'),
+                celular: formData.get('celular'),
+                fecha_nacimiento: formData.get('fecha_nacimiento'),
+                correo: formData.get('correo')
+            };
+
+            fetch('http://localhost:3001/api/addEntry', { // Cambia el puerto a 3001
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Datos enviados exitosamente');
+                } else {
+                    alert('Error al enviar datos: ' + result.message);
+                }
+            })
+            .catch(error => {
+                alert('Error al enviar datos: ' + error.message);
+            });
+        }
+
+        function searchEntries() {
+            const searchTerm = document.getElementById('search').value;
+
+            if (searchTerm.length > 0) {
+                fetch(`http://localhost:3001/api/search?q=${searchTerm}`) // Cambia el puerto a 3001
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success && result.results.length > 0) {
+                            const entry = result.results[0];
+                            document.getElementById('nombre').value = entry.Nombre;
+                            document.getElementById('apellidos').value = entry.Apellidos;
+                            document.getElementById('domicilio').value = entry.Domicilio;
+                            document.getElementById('telefono_casa').value = entry.Telefono_Casa;
+                            document.getElementById('celular').value = entry.Celular;
+                            document.getElementById('fecha_nacimiento').value = entry.Fecha_de_Nacimiento;
+                            document.getElementById('correo').value = entry.Correo;
+                        } else {
+                            alert('No se encontraron resultados');
+                        }
+                    });
+            }
+        }
+
+        function showAllEntries() {
+            fetch('http://localhost:3001/api/entries') // Cambia el puerto a 3001
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        const recordsContainer = document.getElementById('recordsContainer');
+                        const recordsTableBody = document.getElementById('recordsTable').getElementsByTagName('tbody')[0];
+
+                        recordsTableBody.innerHTML = ''; // Limpia la tabla antes de agregar nuevas filas
+
+                        result.entries.forEach(entry => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${entry.Nombre}</td>
+                                <td>${entry.Apellidos}</td>
+                                <td>${entry.Domicilio}</td>
+                                <td>${entry.Telefono_Casa}</td>
+                                <td>${entry.Celular}</td>
+                                <td>${entry.Fecha_de_Nacimiento}</td>
+                                <td>${entry.Correo}</td>
+                            `;
+                            recordsTableBody.appendChild(row);
+                        });
+
+                        // Muestra la tabla de registros y ajusta los estilos
+                        recordsContainer.style.display = 'block';
+                        document.querySelector('.inputs').style.flex = '0 1 50%';
+                    } else {
+                        alert('Error al obtener los registros');
+                    }
+                });
+        }
+    </script>
+</body>
+</html>
